@@ -105,10 +105,10 @@ def main():
 
         # Simulasi Monte Carlo
         # Parameter generator
-        a = 32
-        c = 25
+        a = 30
+        c = 20
         m = 99
-        z0 = 78
+        z0 = 70
 
         # Jumlah simulasi
         n = st.slider("Jumlah Simulasi", min_value=1, max_value=20, value=5)

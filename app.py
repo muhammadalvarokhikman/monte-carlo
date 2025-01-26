@@ -8,23 +8,20 @@ def main():
     # Setup halaman utama
     st.set_page_config(page_title="Simulasi Monte Carlo", layout="wide")
 
-    # Sidebar dengan logo dan informasi "Created by"
+    # Sidebar dengan logo
     st.sidebar.image(
         "logo.png", caption="Universitas Muhammadiyah Semarang", use_container_width=True
     )
     st.sidebar.title("Navigasi")
-    menu = ["Data Mahasiswa Baru", "Monte Carlo"]
-    choice = st.sidebar.selectbox("Pilih Menu", menu)
-
-    # Tambahkan informasi "Created by" di bawah navigasi
     st.sidebar.markdown(
         """
-        ---
-        **✏️ Created By**  
-        **Nama**: Muhammad Alvaro Khikman  
-        **NIM**: B2A022061
+        Created by:
+        Nama : Muhammad Alvaro Khikman  
+        NIM : B2A022061
         """
     )
+    menu = ["Data Mahasiswa Baru", "Monte Carlo"]
+    choice = st.sidebar.selectbox("Pilih Menu", menu)
 
     # Header aplikasi
     st.markdown(
@@ -46,18 +43,22 @@ def main():
             }
         )
 
-        # Tampilkan tabel
+        # Layout untuk tabel dan grafik
         st.subheader("Data Mahasiswa Baru")
-        st.dataframe(data_mahasiswa)
+        col1, col2 = st.columns(2, gap="large")
 
-        # Tambahkan grafik visualisasi
-        st.subheader("Visualisasi Data")
-        fig, ax = plt.subplots(figsize=(10, 6))
-        sns.barplot(x="Tahun", y="Jumlah Pendaftar", data=data_mahasiswa, palette="viridis", ax=ax)
-        ax.set_title("Jumlah Pendaftar Per Tahun", fontsize=16)
-        ax.set_xlabel("Tahun")
-        ax.set_ylabel("Jumlah Pendaftar")
-        st.pyplot(fig)
+        with col1:
+            st.write("### Tabel Data")
+            st.dataframe(data_mahasiswa)
+
+        with col2:
+            st.write("### Visualisasi Data")
+            fig, ax = plt.subplots(figsize=(6, 6))
+            sns.barplot(x="Tahun", y="Jumlah Pendaftar", data=data_mahasiswa, palette="viridis", ax=ax)
+            ax.set_title("Jumlah Pendaftar Per Tahun", fontsize=16)
+            ax.set_xlabel("Tahun")
+            ax.set_ylabel("Jumlah Pendaftar")
+            st.pyplot(fig)
 
     elif choice == "Monte Carlo":
         # Data awal
